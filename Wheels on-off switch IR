@@ -1,0 +1,20 @@
+function moveServo () {
+    pins.A7.digitalWrite(true)
+}
+network.onInfraredReceivedNumber(function (num) {
+    servoTrigger += 1
+})
+let servoTrigger = 0
+pins.A7.digitalWrite(false)
+light.setAll(0x000000)
+forever(function () {
+    if (servoTrigger > 1) {
+        servoTrigger = 0
+    }
+})
+forever(function () {
+    while (servoTrigger == 1) {
+        moveServo()
+    }
+    pins.A7.digitalWrite(false)
+})
